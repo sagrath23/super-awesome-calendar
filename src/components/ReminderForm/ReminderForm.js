@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import DateFnsUtils from '@date-io/date-fns';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FilledInput from '@material-ui/core/FilledInput';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Switch from '@material-ui/core/Switch';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 import { Form } from '../common/Form';
 import { actions } from '../../store/domains';
 
 const baseReminder = {
   city: '',
-  day: '',
-  month: '',
+  date: new Date(),
   name: '',
-  time: ''
+  time: new Date()
 };
 
 export const ReminderForm = () => {
@@ -46,6 +48,33 @@ export const ReminderForm = () => {
           onChange={setReminderAttribute('name')} 
         />
       </FormControl>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Grid container justify="space-around">
+          <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="dd/MM"
+            margin="normal"
+            id="date-picker-inline"
+            label="Date picker inline"
+            value={reminder.date}
+            onChange={setReminderAttribute('date')}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+          <KeyboardTimePicker
+            margin="normal"
+            id="time-picker"
+            label="Time picker"
+            value={reminder.time}
+            onChange={setReminderAttribute('time')}
+            KeyboardButtonProps={{
+              'aria-label': 'change time',
+            }}
+          />
+        </Grid>
+      </MuiPickersUtilsProvider>
       <FormControl fullWidth variant="filled">
         <InputLabel htmlFor="filled-adornment-description">Description</InputLabel>
         <FilledInput
