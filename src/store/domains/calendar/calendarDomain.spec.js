@@ -1,10 +1,12 @@
+import { v4 as uuid } from 'uuid';
 import { actions, initialState, reducer } from '../calendar';
+
+jest.mock('uuid');
 
 describe('Calendar Domain', () => {
   const month = '01';
   const day = '01';
   const city = 'Cali';
-  const id = '123'; 
   const name = 'test reminder';
   const time = '15:00'
 
@@ -13,7 +15,6 @@ describe('Calendar Domain', () => {
       const action = actions.addReminder({
         city,
         day,
-        id,
         month,
         name,
         time});
@@ -22,7 +23,6 @@ describe('Calendar Domain', () => {
         payload: {
           city,
           day,
-          id,
           month,
           name,
           time
@@ -36,11 +36,15 @@ describe('Calendar Domain', () => {
     const reminder = {
       city,
       day,
-      id,
+      id: '123',
       month,
       name,
       time
     };
+
+    beforeEach(() => {
+      uuid.mockImplementation(() => '123');
+    });
 
     test('should return the same state if a valid action is not provided', () => {
       expect(reducer(initialState, { type: 'random action' })).toEqual(initialState);

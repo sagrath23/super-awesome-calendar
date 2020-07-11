@@ -1,4 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
+import { v4 as uuid } from 'uuid';
 
 export const initialState = {
   reminders: [],
@@ -16,14 +17,12 @@ const {
   ADD_REMINDER: ({
     city,
     day,
-    id,
     month,
     name,
     time
   }) => ({
     city,
     day,
-    id,
     month,
     name,
     time
@@ -37,7 +36,6 @@ export const reducer = handleActions({
   [addReminder]: (state, { payload: {
     city,
     day,
-    id,
     month,
     name,
     time
@@ -46,7 +44,7 @@ export const reducer = handleActions({
     reminders: [...state.reminders, {
       city,
       day,
-      id,
+      id: uuid(),
       month,
       name,
       time
