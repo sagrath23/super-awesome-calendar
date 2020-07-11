@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import { ReminderForm } from './components/ReminderForm';
+import { Calendar } from './components/Calendar';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         </div>
         <div>
           <h3>Reminders</h3>
+          <Calendar />
         </div>
       </header>
     </div>
