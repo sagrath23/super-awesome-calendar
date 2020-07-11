@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import { ReminderForm } from './components/ReminderForm';
 import './App.css';
 
 function App() {
@@ -18,6 +19,12 @@ function App() {
         >
           Learn React
         </a>
+        <div>
+          <ReminderForm />
+        </div>
+        <div>
+          <h3>Reminders</h3>
+        </div>
       </header>
     </div>
   );
