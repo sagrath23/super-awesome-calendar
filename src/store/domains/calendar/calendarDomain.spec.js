@@ -6,6 +6,7 @@ jest.mock('uuid');
 describe('Calendar Domain', () => {
   const month = '01';
   const day = '01';
+  const id = '123';
   const city = 'Cali';
   const name = 'test reminder';
   const time = '15:00'
@@ -30,6 +31,39 @@ describe('Calendar Domain', () => {
         type: `${[actions.addReminder]}`
       });
     });
+
+    test(`${[actions.editReminder]} action should return the proper action object`, () => {
+      const action = actions.editReminder({
+        city,
+        day,
+        id,
+        month,
+        name,
+        time});
+
+      expect(action).toEqual({
+        payload: {
+          city,
+          day,
+          id,
+          month,
+          name,
+          time
+        },
+        type: `${[actions.editReminder]}`
+      });
+    });
+
+    test(`${[actions.deleteReminder]} action should return the proper action object`, () => {
+      const action = actions.deleteReminder({ id });
+
+      expect(action).toEqual({
+        payload: { id },
+        type: `${[actions.deleteReminder]}`
+      });
+    });
+
+
   });
 
   describe('reducer tests', () => {
@@ -42,8 +76,8 @@ describe('Calendar Domain', () => {
       time
     };
 
-    beforeEach(() => {
-      uuid.mockImplementation(() => '123');
+    beforeAll(() => {
+      uuid.mockImplementation(() => id);
     });
 
     test('should return the same state if a valid action is not provided', () => {
@@ -57,6 +91,31 @@ describe('Calendar Domain', () => {
       };
 
       expect(reducer(initialState, actions.addReminder(reminder))).toEqual(expectedState);
+    });
+
+    test(`should return the proper state when ${[actions.editReminder]} action is provided`, () => {
+      const modifiedReminder = { ...reminder, name: 'new reminder name' };
+      const expectedState = {
+        ...initialState,
+        reminders: [...initialState.reminders, modifiedReminder]
+      };
+
+      expect(reducer({
+        ...initialState,
+        reminders: [reminder],
+      }, actions.editReminder(modifiedReminder))).toEqual(expectedState);
+    });
+
+    test(`should return the proper state when ${[actions.deleteReminder]} action is provided`, () => {
+      const expectedState = {
+        ...initialState,
+        reminders: []
+      };
+
+      expect(reducer({
+        ...initialState,
+        reminders: [reminder],
+      }, actions.deleteReminder({ id }))).toEqual(expectedState);
     });
   });
 });
