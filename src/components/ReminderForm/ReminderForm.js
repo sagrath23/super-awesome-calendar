@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { getMonth, getDate, format } from 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FilledInput from '@material-ui/core/FilledInput';
 import FormControl from '@material-ui/core/FormControl';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import InputLabel from '@material-ui/core/InputLabel';
 import {
   MuiPickersUtilsProvider,
@@ -21,6 +21,7 @@ const baseReminder = {
   name: '',
   time: new Date()
 };
+const extractDateAndTimeData = ({ date, time }) => [getMonth(date), getDate(date), format(time, 'HH:mm')]; 
 
 export const ReminderForm = () => {
   const dispatch = useDispatch();
@@ -28,11 +29,19 @@ export const ReminderForm = () => {
   const setReminderAttribute = (attribute) => (event) => {
     setReminder({
       ...reminder,
-      [attribute]: attribute !== 'stocked' ? event.target.value : event.target.checked 
+      [attribute]: attribute !== 'date' && attribute !== 'time' ? event.target.value : event 
     });
   };
-  const addReminder = (reminder) => {
-    dispatch(actions.addReminder(reminder));
+  const addReminder = () => {
+    const [month, day, time] = extractDateAndTimeData(reminder);
+
+    dispatch(actions.addReminder({
+      city: reminder.city,
+      day,
+      month,
+      name: reminder.name,
+      time
+    }));
   };
   const clearForm = () => {
     setReminder({ ...baseReminder });
@@ -56,43 +65,34 @@ export const ReminderForm = () => {
             format="dd/MM"
             margin="normal"
             id="date-picker-inline"
-            label="Date picker inline"
+            label="Date"
             value={reminder.date}
             onChange={setReminderAttribute('date')}
             KeyboardButtonProps={{
-              'aria-label': 'change date',
+              'aria-label': 'Date',
             }}
           />
           <KeyboardTimePicker
             margin="normal"
             id="time-picker"
-            label="Time picker"
+            label="Time"
             value={reminder.time}
             onChange={setReminderAttribute('time')}
             KeyboardButtonProps={{
-              'aria-label': 'change time',
+              'aria-label': 'Time',
             }}
           />
         </Grid>
       </MuiPickersUtilsProvider>
       <FormControl fullWidth variant="filled">
-        <InputLabel htmlFor="filled-adornment-description">Description</InputLabel>
+        <InputLabel htmlFor="filled-adornment-name">City</InputLabel>
         <FilledInput
-          id="filled-adornment-description"
-          value={reminder.description}
-          onChange={setReminderAttribute('description')} 
+          id="filled-adornment-city"
+          value={reminder.city}
+          onChange={setReminderAttribute('city')} 
         />
       </FormControl>
-      <FormControl fullWidth variant="filled">
-        <InputLabel htmlFor="filled-adornment-price">Price</InputLabel>
-        <FilledInput
-          id="filled-adornment-price"
-          value={reminder.price}
-          onChange={setReminderAttribute('price')} 
-          startAdornment={<InputAdornment position="start">$</InputAdornment>}
-        />
-      </FormControl>
-      <Button onClick={() => addReminder(reminder)} variant="contained" color="primary">
+      <Button onClick={addReminder} variant="contained" color="primary">
         Add
       </Button>
       <Button onClick={clearForm} variant="outlined" color="default">
