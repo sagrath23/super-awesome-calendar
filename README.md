@@ -1,3 +1,9 @@
+# Super Awesome Calendar
+
+[![Build Status](https://travis-ci.org/sagrath23/super-awesome-calendar.svg?branch=master)](https://travis-ci.org/sagrath23/super-awesome-calendar)
+
+Another experiment to test React's new features.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
