@@ -15,7 +15,7 @@ describe('Header component', () => {
   test('should render with default props', () => {
     renderRoutingComponent(Header, {});
 
-    expect(screen.getByText('React')).toBeDefined();
+    expect(screen.getByText('Reminders Calendar')).toBeDefined();
   });
 
   test('should call passed function when clicks over menu icon', () => {
