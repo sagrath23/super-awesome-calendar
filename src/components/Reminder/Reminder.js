@@ -22,4 +22,13 @@ export const Reminder = ({
       <button onClick={handleClick}>X</button>
     </div>
   );
-}
+};
+
+Reminder.propTypes = {
+  city: PropTypes.string.isRequired,
+  day: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  month: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired
+};
