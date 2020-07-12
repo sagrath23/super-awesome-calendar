@@ -67,7 +67,7 @@ export const Header = ({ children, isSidebarOpen, menuClickHandler }) =>  {
           </IconButton>
           <Typography variant="h5" color="primary" noWrap className={classes.toolbarTitle}>
             <StyledLink classes={classes} to="/">
-              <b >React</b>  Products Store
+              Super Awesome <b>Reminders Calendar</b>
             </StyledLink>
           </Typography>
           {Children.map(children, (node, index) => <Fragment key={`header-children-${index}`}>{node}</Fragment>)}
