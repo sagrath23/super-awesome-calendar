@@ -1,20 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { CalendarWeek } from './CalendarWeek';
 import { ReminderPill } from '../ReminderPill';
 import { remindersSelector } from '../../selectors';
-import { CalendarItem } from './CalendarItem';
 
 // 7 columns x 5 rows
-const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 // const weeks = [1, 2, 3, 4, 5];
 const useStyles = makeStyles((theme) => ({
   calendar: {
+    border: '1px solid #DDDDDD',
     display: 'grid',
     gridAutoFlow: 'row',
-    gridTemplateColumns: 'repeat(7, 1fr)'
+    gridTemplateColumns: 'repeat(7, 1fr)',
+    gridTemplateRows: 'auto repeat(5, 20%)',
+    height: '80vh'
   },
   dayCell: {
+    display: 'grid',
     alignContent: 'center',
     backgroundColor: '#507eb3',
     color: '#fff',
@@ -29,8 +33,12 @@ export const Calendar = () => {
   return (
     <>
       <div className={classes.calendar}>
-        {days.map((day) => (<CalendarItem><p>{day}</p></CalendarItem>))}
-        {days.map(() => (<div><p>Hi</p></div>))}
+        {days.map((day) => (<div className={classes.dayCell}><p>{day}</p></div>))}
+        <CalendarWeek days={days} />
+        <CalendarWeek days={days} />
+        <CalendarWeek days={days} />
+        <CalendarWeek days={days} />
+        <CalendarWeek days={days} />
       </div>
       {reminders.map((reminder) => (<ReminderPill {...reminder} />))}
     </>
