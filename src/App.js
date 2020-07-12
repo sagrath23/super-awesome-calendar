@@ -6,12 +6,10 @@ import './App.css';
 
 const history = createBrowserHistory();
 
-function App() {
-  return (
-    <Router history={history}>
-      <Route component={Layout} />
-    </Router>
-  );
-}
+const App = () => (
+  <Router history={history}>
+    <Route component={Layout} />
+  </Router>
+);
 
 export default App;

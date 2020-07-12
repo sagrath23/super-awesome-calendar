@@ -9,6 +9,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import {
   Calendar
 } from '../pages';
+import { useCurrentLocation } from '../hooks';
 import { CalendarHeader } from '../components/CalendarHeader';
 import { CalendarSidebar } from '../components/CalendarSidebar';
 
@@ -32,10 +33,19 @@ export const Layout = () => {
   const classes = useStyles(theme);
   const [isSidebarOpen, toggleSidebar] = useState(false);
   const [isSnackbarOpen, toggleSnackbar] = useState(false);
+  const { position, error } = useCurrentLocation({
+    enableHighAccuracy: true,
+    timeout: 1000 * 60 * 1, // 1 min (1000 ms * 60 sec * 1 minute = 60 000ms)
+    maximumAge: 1000 * 3600 * 24, // 24 hour
+  });
   const pageContextValue = {
     pageContext: {
       isSidebarOpen,
-      toggleSidebar
+      toggleSidebar,
+      position: {
+        position,
+        error
+      }
     },
     notificationContext: {
       isSnackbarOpen,

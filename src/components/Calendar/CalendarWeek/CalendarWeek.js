@@ -4,7 +4,10 @@ import { CalendarItem } from '../CalendarItem';
 export const CalendarWeek = ({ days }) => {
   return (
     <>
-      {days.map(() => (<CalendarItem />))}
+      {days.map(() => (
+        <CalendarItem>
+          <div>Hi</div><div>Hi</div><div>Hi</div>
+        </CalendarItem>))}
     </>
   );
 };

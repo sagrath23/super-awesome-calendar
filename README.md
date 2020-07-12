@@ -6,6 +6,12 @@ Another experiment to test React's new features.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Before you start
+
+This app uses [OpenWeatherMap](https://home.openweathermap.org/) so you need to provide a valid API key in order to use the service.
+This key can be provided in a .env file if you want to run this 
+
+
 ## Available Scripts
 
 In the project directory, you can run:

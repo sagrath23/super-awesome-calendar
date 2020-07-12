@@ -1,6 +1,6 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(() => ({
@@ -14,7 +14,12 @@ export const CalendarItem = ({ children }) => {
 
   return (
     <Grid className={classes.calendarItem}>
-      {Children.map(children, (node, index) => <div key={`form-children-${index}`}>{node}</div>)}
+      <Grid item xs={1}><p>day</p></Grid>
+      <Grid item xs={12}>
+        <Grid container spacing={1}>
+          {Children.map(children, (node, index) => <Grid item key={`form-children-${index}`} xs={12}>{node}</Grid>)}
+        </Grid> 
+      </Grid>
     </Grid>
   );
 };
