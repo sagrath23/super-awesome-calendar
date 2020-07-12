@@ -1,23 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import { ReminderForm } from './components/ReminderForm';
-import { Calendar } from './components/Calendar';
+import { Router, Route } from 'react-router-dom';
+import { createBrowserHistory } from "history";
+import { Layout } from './pages';
 import './App.css';
+
+const history = createBrowserHistory();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div>
-          <ReminderForm />
-        </div>
-        <div>
-          <h3>Reminders</h3>
-          <Calendar />
-        </div>
-      </header>
-    </div>
+    <Router history={history}>
+      <Route component={Layout} />
+    </Router>
   );
 }
 
