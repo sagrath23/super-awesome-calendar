@@ -14,7 +14,10 @@ import { PageContext } from '../../../pages';
 
 const useStyles = makeStyles(() => ({
   calendarItem: {
-    border: '1px solid #DDDDDD'
+    border: '1px solid #DDDDDD',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   todayItem: {
     backgroundColor: '#AAC7E7'
@@ -24,6 +27,10 @@ const useStyles = makeStyles(() => ({
   },
   isWeekendItem: {
     backgroundColor: '#EEE'
+  },
+  isWeekendDate: {
+    color: '#507eb3',
+    fontWeight: 'bold'
   }
 }));
 
@@ -51,7 +58,7 @@ export const CalendarItem = ({ date }) => {
       onClick={handleClick}
     >
       <Grid item xs={12}>
-        <p>{getDate(date)}</p>
+        <p className={clsx({[classes.isWeekendDate]: isWeekend(date) && isThisMonth(date)})}>{getDate(date)}</p>
       </Grid>
       <Grid item xs={12}>
         <Grid container spacing={1}>
