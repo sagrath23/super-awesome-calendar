@@ -1,3 +1,4 @@
 import React from 'react';
+import { Reminder } from '../components/Reminder';
 
-export const ReminderDetail = () => (<div>Detail</div>);
+export const ReminderDetail = () => (<Reminder />);

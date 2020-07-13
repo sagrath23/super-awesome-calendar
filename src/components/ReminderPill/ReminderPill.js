@@ -51,7 +51,7 @@ export const ReminderPill = ({
       className={classes.reminderPill}
       container
       justify="center"
-      spacing={0.5}
+      spacing={0}
       onClick={handleRedirectToDetail}
     >
       <Grid item xs={2}>
