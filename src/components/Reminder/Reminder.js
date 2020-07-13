@@ -25,14 +25,11 @@ export const Reminder = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { reminderId } = useParams();
-  const [{
+  const {
     city,
-    day,
-    id,
-    month,
     name,
     time
-  } = {}] = useSelector(remindersSelector).filter((reminder) => reminder.id === reminderId);
+  } = useSelector(remindersSelector).find((reminder) => reminder.id === reminderId);
   const classes = useStyles();
   const handleGoBackClick = () => history.push('/');
   const handleRemoveReminderClick = () => {
