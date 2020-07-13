@@ -63,13 +63,13 @@ export const Calendar = () => {
   return (
     <>
       <div className={classes.calendar}>
-        {days.map((day) => (
-          <div className={classes.dayCell}>
+        {days.map((day, index) => (
+          <div key={`day-title-${index}`} className={classes.dayCell}>
             <p>{day}</p>
           </div>
         ))}
-        {weekIntervals.map((weekInterval) => (
-          <CalendarWeek days={days} reminders={reminders} startDate={weekInterval.startDate} endDate={weekInterval.endDate} />
+        {weekIntervals.map((weekInterval, index) => (
+          <CalendarWeek key={`week-${index}`} days={days} reminders={reminders} startDate={weekInterval.startDate} endDate={weekInterval.endDate} />
         ))}
       </div>
     </>

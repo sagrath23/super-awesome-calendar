@@ -42,6 +42,7 @@ export const ReminderForm = () => {
       name: reminder.name,
       time
     }));
+    clearForm();
   };
   const clearForm = () => {
     setReminder({ ...baseReminder });

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addDays, getWeek } from 'date-fns';
+import { addDays } from 'date-fns';
 import { CalendarItem } from '../CalendarItem';
 
-export const CalendarWeek = ({ startDate }) => {
+const generateWeekItems = (startDate) => {
   const items = [];
 
   for(let i = 0; i < 7; i++) {
@@ -11,11 +11,17 @@ export const CalendarWeek = ({ startDate }) => {
 
     items.push({ itemDate });
   }
-  
+
+  return items;
+};
+
+export const CalendarWeek = ({ startDate }) => {
+  const items = generateWeekItems(startDate);
+
   return (
     <>
-      {items.map((item) => (
-        <CalendarItem key={`calendar-week-${getWeek(item.itemDate)}`} date={item.itemDate} />
+      {items.map((item, index) => (
+        <CalendarItem key={`calendar-week-${index}`} date={item.itemDate} />
       ))}
     </>
   );
