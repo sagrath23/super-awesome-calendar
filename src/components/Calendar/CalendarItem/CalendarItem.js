@@ -1,4 +1,4 @@
-import React, { Children, useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isSameDay } from 'date-fns';
