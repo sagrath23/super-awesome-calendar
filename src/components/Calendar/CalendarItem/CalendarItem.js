@@ -19,6 +19,9 @@ const useStyles = makeStyles(() => ({
       cursor: 'pointer'
     }
   },
+  date: {
+    marginLeft: '0.75rem'
+  },
   todayItem: {
     backgroundColor: '#AAC7E7'
   },
@@ -43,7 +46,10 @@ export const CalendarItem = ({ date }) => {
   const classes = useStyles();
   const handleClick = () => {
     //set modal content
-    setModalContent(<ReminderForm />);
+
+    console.log(date, 'here');
+
+    setModalContent(<ReminderForm date={date} closeModal={toggleModal} />);
     // open the modal dialog
     toggleModal(!isModalOpen);
   };
@@ -58,7 +64,7 @@ export const CalendarItem = ({ date }) => {
       onClick={handleClick}
     >
       <Grid item xs={12}>
-        <p className={clsx({[classes.isWeekendDate]: isWeekend(date) && isThisMonth(date)})}>{getDate(date)}</p>
+        <p className={clsx(classes.date, {[classes.isWeekendDate]: isWeekend(date) && isThisMonth(date)})}>{getDate(date)}</p>
       </Grid>
       <Grid item xs={12}>
         <Grid container spacing={1}>

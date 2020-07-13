@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
 import {
   Calendar
 } from '../pages';
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(10),
   }
 }));
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export const Layout = () => {
   const theme = useTheme();
@@ -82,7 +86,13 @@ export const Layout = () => {
               </React.Fragment>
             }
           />
-          <Dialog onClose={handleModalClose} aria-labelledby="simple-dialog-title" open={isModalOpen}>
+          <Dialog
+            fullScreen
+            onClose={handleModalClose}
+            aria-labelledby="simple-dialog-title"
+            open={isModalOpen}
+            TransitionComponent={Transition}
+          >
             {modalContent}
           </Dialog>
         </Container>
