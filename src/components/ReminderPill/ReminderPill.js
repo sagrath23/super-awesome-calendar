@@ -13,6 +13,13 @@ const useStyles = makeStyles(() => ({
     borderRadius: '50%',
     height: '1.5rem',
     width: '1.5rem'
+  },
+  reminderNameContainer: {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap'
+  },
+  reminderName: {
+    textOverflow: 'ellipsis'
   }
 }));
 
@@ -36,8 +43,8 @@ export const ReminderPill = ({
       <Grid item xs={2}>
         <div className={classes.colorIndicator}></div>
       </Grid>
-      <Grid item xs={8}>
-        <p>{name}</p>
+      <Grid className={classes.reminderNameContainer} item xs={8}>
+        <p className={classes.reminderName}>{name}</p>
       </Grid>
       <Grid item xs={2}>
         <IconButton aria-label="delete" color="secondary" onClick={handleClick} size="small">
