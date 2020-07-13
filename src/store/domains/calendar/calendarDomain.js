@@ -49,7 +49,7 @@ const {
     time
   }),
   DELETE_REMINDER: ({ id }) => ({ id }),
-  DELETE_ALL_REMINDER: undefined
+  DELETE_ALL_REMINDERS: undefined
 });
 
 export const reducer = handleActions({
@@ -96,7 +96,7 @@ export const reducer = handleActions({
     ...state,
     reminders: state.reminders.filter((reminder) => reminder.id !== id)
   }),
-  [deleteAllReminders]: () => {}
+  [deleteAllReminders]: (state) => ({ ...state, reminders: []})
 }, initialState);
 
 export const actions = {

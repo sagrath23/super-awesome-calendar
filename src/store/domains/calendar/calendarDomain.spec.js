@@ -63,7 +63,13 @@ describe('Calendar Domain', () => {
       });
     });
 
+    test(`${[actions.deleteAllReminders]} action should return the proper action object`, () => {
+      const action = actions.deleteAllReminders();
 
+      expect(action).toEqual({
+        type: `${[actions.deleteAllReminders]}`
+      });
+    });
   });
 
   describe('reducer tests', () => {
@@ -116,6 +122,18 @@ describe('Calendar Domain', () => {
         ...initialState,
         reminders: [reminder],
       }, actions.deleteReminder({ id }))).toEqual(expectedState);
+    });
+
+    test(`should return the proper state when ${[actions.deleteAllReminders]} action is provided`, () => {
+      const expectedState = {
+        ...initialState,
+        reminders: []
+      };
+
+      expect(reducer({
+        ...initialState,
+        reminders: [reminder, reminder, reminder],
+      }, actions.deleteAllReminders())).toEqual(expectedState);
     });
   });
 });
