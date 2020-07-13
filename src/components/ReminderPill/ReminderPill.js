@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,6 +20,11 @@ const useStyles = makeStyles(() => ({
   },
   reminderName: {
     textOverflow: 'ellipsis'
+  },
+  reminderPill: {
+    '&:hover': {
+      backgroundColor: '#EEE'
+    }
   }
 }));
 
@@ -27,19 +33,26 @@ export const ReminderPill = ({
   name
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles();
   const handleClick = (event) => {
     // to avoid the modal's opening
     event.stopPropagation();
     dispatch(actions.deleteReminder({ id }));
   };
+  const handleRedirectToDetail = (event) => {
+    event.stopPropagation();
+    history.push(`/reminders/${id}`);
+  };
 
   return (
     <Grid
       alignItems="center"
+      className={classes.reminderPill}
       container
       justify="center"
-      spacing={1}
+      spacing={0.5}
+      onClick={handleRedirectToDetail}
     >
       <Grid item xs={2}>
         <div className={classes.colorIndicator}></div>

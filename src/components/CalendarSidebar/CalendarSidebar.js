@@ -10,9 +10,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import EventIcon from '@material-ui/icons/Event';
 import AddIcon from '@material-ui/icons/Add';
-import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ListItemText from '@material-ui/core/ListItemText';
 import { PageContext } from '../../pages';
 
@@ -53,7 +53,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const CalendarSidebar = () => {
-  const { pageContext: { isSidebarOpen, toggleSidebar } } = useContext(PageContext);
+  const {
+    pageContext: {
+      isSidebarOpen,
+      toggleSidebar
+    },
+    modalDialogContext: {
+      isModalOpen,
+      toggleModal,
+      setModalContent
+    }
+  } = useContext(PageContext);
   const theme = useTheme();
   const classes = useStyles(theme);
   const handleDrawerClose = () => toggleSidebar(!isSidebarOpen);
@@ -81,15 +91,15 @@ export const CalendarSidebar = () => {
       <List>
         <ListItem button key="add-button">
           <ListItemIcon><AddIcon /></ListItemIcon>
-          <ListItemText primary="Add Product" />
+          <ListItemText primary="Add reminder" />
         </ListItem>
-        <ListItem button key="cart-button">
-          <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
-          <ListItemText primary="Shopping Cart" />
+        <ListItem button key="list-button">
+          <ListItemIcon><EventIcon /></ListItemIcon>
+          <ListItemText primary="List reminders" />
         </ListItem>
         <ListItem button key="clear-button">
-          <ListItemIcon><RemoveShoppingCartIcon /></ListItemIcon>
-          <ListItemText primary="Clear Cart" />
+          <ListItemIcon><DeleteForeverIcon /></ListItemIcon>
+          <ListItemText primary="Remove all reminders" />
         </ListItem>
       </List>
     </Drawer>
