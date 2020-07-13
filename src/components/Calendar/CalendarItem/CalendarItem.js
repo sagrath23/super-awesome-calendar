@@ -1,5 +1,7 @@
 import React, { Children, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { isSameDay } from 'date-fns';
 import clsx from 'clsx';
 import {
   getDate,
@@ -10,7 +12,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { ReminderForm } from '../../ReminderForm';
+import { ReminderPill } from '../../ReminderPill';
 import { PageContext } from '../../../pages';
+import { remindersSelector } from '../../../selectors';
 
 const useStyles = makeStyles(() => ({
   calendarItem: {
@@ -38,6 +42,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const CalendarItem = ({ date }) => {
+  const reminders = useSelector(remindersSelector);
   const { modalDialogContext: {
     isModalOpen,
     toggleModal,
@@ -46,9 +51,6 @@ export const CalendarItem = ({ date }) => {
   const classes = useStyles();
   const handleClick = () => {
     //set modal content
-
-    console.log(date, 'here');
-
     setModalContent(<ReminderForm date={date} closeModal={toggleModal} />);
     // open the modal dialog
     toggleModal(!isModalOpen);
@@ -68,8 +70,11 @@ export const CalendarItem = ({ date }) => {
       </Grid>
       <Grid item xs={12}>
         <Grid container spacing={1}>
-          { /** TODO: Should render here the reminders per day */}
-          {Children.map([], (node, index) => <Grid item key={`form-children-${index}`} xs={12}>{node}</Grid>)}
+          {reminders.filter((reminder) => isSameDay(date, reminder.fullDate)).map((reminder, index) => (
+            <Grid item key={`reminder-item-${index}`} xs={12}>
+              <ReminderPill id={reminder.id} name={reminder.name} />
+            </Grid>
+          ))}
         </Grid> 
       </Grid>
     </Grid>

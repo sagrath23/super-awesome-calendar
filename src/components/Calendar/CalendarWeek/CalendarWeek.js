@@ -14,9 +14,9 @@ const generateWeekItems = (startDate) => {
 
   return items;
 };
-
+// Should get reminders here, filter per date in the function, and add it as attribute in each item
 export const CalendarWeek = ({ startDate }) => {
-  const items = generateWeekItems(startDate);
+  const items = generateWeekItems(startDate, );
 
   return (
     <>

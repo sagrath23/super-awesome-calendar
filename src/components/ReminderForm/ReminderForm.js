@@ -25,6 +25,7 @@ import { Form } from '../common/Form';
 import { actions } from '../../store/domains';
 
 const extractDateAndTimeData = ({ date, time }) => [getMonth(date), getDate(date), format(time, 'HH:mm')];
+const validateMaxLength = (name) => name.length > 30;
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -56,6 +57,7 @@ export const ReminderForm = ({ date, closeModal}) => {
     dispatch(actions.addReminder({
       city: reminder.city,
       day,
+      fullDate: reminder.date,
       month,
       name: reminder.name,
       time
@@ -84,7 +86,7 @@ export const ReminderForm = ({ date, closeModal}) => {
           <Typography variant="h6" className={classes.title}>
             Add reminder
           </Typography>
-          <Button autoFocus color="inherit" onClick={addReminder}>
+          <Button autoFocus color="inherit" onClick={addReminder} disabled={validateMaxLength(reminder.name)}>
             Save
           </Button>
         </Toolbar>
@@ -95,6 +97,7 @@ export const ReminderForm = ({ date, closeModal}) => {
             <InputLabel htmlFor="filled-adornment-name">Name</InputLabel>
             <FilledInput
               id="filled-adornment-name"
+              error={validateMaxLength(reminder.name)}
               value={reminder.name}
               onChange={setReminderAttribute('name')} 
             />

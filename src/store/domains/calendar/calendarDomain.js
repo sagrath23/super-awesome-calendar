@@ -23,12 +23,14 @@ const {
   ADD_REMINDER: ({
     city,
     day,
+    fullDate,
     month,
     name,
     time
   }) => ({
     city,
     day,
+    fullDate,
     month,
     name,
     time
@@ -57,6 +59,7 @@ export const reducer = handleActions({
     payload: {
       city,
       day,
+      fullDate,
       month,
       name,
       time
@@ -66,6 +69,7 @@ export const reducer = handleActions({
     reminders: [...state.reminders, {
       city,
       day,
+      fullDate,
       id: uuid(),
       month,
       name,
