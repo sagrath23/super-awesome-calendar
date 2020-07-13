@@ -15,8 +15,7 @@ const useStyles = makeStyles(() => ({
     width: '1.5rem'
   },
   reminderNameContainer: {
-    overflow: 'hidden',
-    whiteSpace: 'nowrap'
+    overflow: 'hidden'
   },
   reminderName: {
     textOverflow: 'ellipsis'
@@ -29,7 +28,9 @@ export const ReminderPill = ({
 }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const handleClick = () => {
+  const handleClick = (event) => {
+    // to avoid the modal's opening
+    event.stopPropagation();
     dispatch(actions.deleteReminder({ id }));
   };
 
