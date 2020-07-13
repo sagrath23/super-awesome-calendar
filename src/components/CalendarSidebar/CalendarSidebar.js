@@ -57,12 +57,12 @@ export const CalendarSidebar = () => {
     pageContext: {
       isSidebarOpen,
       toggleSidebar
-    },
-    modalDialogContext: {
-      isModalOpen,
-      toggleModal,
-      setModalContent
-    }
+    }//,
+    // modalDialogContext: {
+    //   isModalOpen,
+    //   toggleModal,
+    //   setModalContent
+    // }
   } = useContext(PageContext);
   const theme = useTheme();
   const classes = useStyles(theme);
