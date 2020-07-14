@@ -14,6 +14,7 @@ This key can be provided in a `.env` file at the project's root folder.
 REACT_APP_WEATHER_API_KEY='PASTE_YOUR_API_KEY_HERE'
 ```
 
+Finally, don't miss to run `npm install` before `npm start` to download the app dependencies.
 
 ## Available Scripts
 
