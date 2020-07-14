@@ -1,13 +1,20 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import {
+  differenceInDays,
+  isAfter,
+  isSameDay,
+  parseISO,
+  isToday
+} from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { remindersSelector, weatherForecastSelector } from '../../selectors';
 import { actions } from '../../store/domains';
@@ -27,10 +34,14 @@ export const Reminder = () => {
   const { reminderId } = useParams();
   const {
     city,
+    fullDate,
     name,
     time
   } = useSelector(remindersSelector).find((reminder) => reminder.id === reminderId);
-  const weatherForecast = useSelector(weatherForecastSelector);
+  const today = new Date();
+  const shouldGetWeatherForecastData = (isToday(fullDate) || isAfter(fullDate, today)) && differenceInDays(fullDate, today) <= 3;
+  const { weather: forecastDays } = useSelector(weatherForecastSelector) ;
+  const forecastDay = forecastDays.find((forecastDay) => isSameDay(parseISO(forecastDay.date), fullDate));
   const classes = useStyles();
   const handleGoBackClick = () => history.push('/');
   const handleRemoveReminderClick = () => {
@@ -39,27 +50,34 @@ export const Reminder = () => {
     history.push('/');
   };
 
-  console.log(weatherForecast, 'here');
-
   useEffect(() => {
-    dispatch(actions.weatherForecastRequest({ reminderId }));
-  }, [dispatch, reminderId]);
+    if(shouldGetWeatherForecastData) {
+      dispatch(actions.weatherForecastRequest({ reminderId }));
+    }
+  }, [dispatch, shouldGetWeatherForecastData, reminderId]);
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
+      <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             At {time} in {city}
           </Typography>
+          {forecastDay && (
+            <Grid alignContent="center" alignItems="center" container direction="column">
+              <Grid item>
+                <img src={`http:${forecastDay.day.condition.icon}`} alt="forecast" />
+              </Grid>
+              <Grid item>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {forecastDay.day.condition.text}
+              </Typography>  
+              </Grid>
+            </Grid>
+          )}
         </CardContent>
       </CardActionArea>
       <CardActions>

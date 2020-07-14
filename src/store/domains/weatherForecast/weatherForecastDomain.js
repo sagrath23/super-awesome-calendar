@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 
 export const initialState = {
-  weather: {},
+  weather: [],
   ui: {
     isLoading: false
   }

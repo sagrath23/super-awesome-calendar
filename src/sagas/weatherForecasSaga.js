@@ -15,9 +15,9 @@ export function* loadWeatherForecastForReminder({ payload: { reminderId }}) {
   const reminder = reminders.find((reminder) => reminder.id === reminderId); 
 
   try {
-    const { forecast } = yield call(getWeatherForecast, reminder.city);
+    const { forecast: { forecastday: weather } } = yield call(getWeatherForecast, reminder.city);
 
-    yield put(actions.weatherForecastSuccessful({ weather: forecast }));
+    yield put(actions.weatherForecastSuccessful({ weather }));
   } catch (error) {
     console.error(error);
 
