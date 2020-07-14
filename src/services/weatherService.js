@@ -1,7 +1,7 @@
-const openWeatherMapURL = 'https://api.openweathermap.org';
+const weatherStackURL = 'http://api.weatherapi.com/v1';
 
-export const getWeatherForecast = async ({ city }) => {
-  const forecastEndpoint = `${openWeatherMapURL}/data/2.5/forecast/daily?q=${city}&cnt=16&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
+export const getWeatherForecast = async (city) => {
+  const forecastEndpoint = `${weatherStackURL}/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}&days=3`;
   const result = await fetch(forecastEndpoint);
 
   return result.json();

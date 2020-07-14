@@ -8,8 +8,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Before you start
 
-This app uses [OpenWeatherMap](https://home.openweathermap.org/) so you need to provide a valid API key in order to use the service.
-This key can be provided in a .env file if you want to run this 
+This app uses [weatherAPI](https://www.weatherapi.com/) to get weather forecast for the following three days from today. You need to provide a valid API key in order to use the service.
+This key can be provided in a `.env` file at the project's root folder.
+```shell
+REACT_APP_WEATHER_API_KEY='PASTE_YOUR_API_KEY_HERE'
+```
 
 
 ## Available Scripts

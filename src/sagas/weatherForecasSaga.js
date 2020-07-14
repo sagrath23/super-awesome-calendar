@@ -14,12 +14,10 @@ export function* loadWeatherForecastForReminder({ payload: { reminderId }}) {
   const reminders = yield select(remindersSelector);
   const reminder = reminders.find((reminder) => reminder.id === reminderId); 
 
-  console.log(reminder, 'here');
-
   try {
-    const requestResult = yield call(getWeatherForecast, reminder.city);
+    const { forecast } = yield call(getWeatherForecast, reminder.city);
 
-    yield put(actions.productListSuccess(requestResult));
+    yield put(actions.weatherForecastSuccessful({ weather: forecast }));
   } catch (error) {
     console.error(error);
 
@@ -27,6 +25,6 @@ export function* loadWeatherForecastForReminder({ payload: { reminderId }}) {
   }
 }
 
-export function* watchProductListRequest() {
+export function* watchWeatherForecastRequest() {
   yield takeEvery(actions.weatherForecastRequest, loadWeatherForecastForReminder)
 }

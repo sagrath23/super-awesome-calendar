@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { remindersSelector } from '../../selectors';
+import { remindersSelector, weatherForecastSelector } from '../../selectors';
 import { actions } from '../../store/domains';
 
 const useStyles = makeStyles({
@@ -30,6 +30,7 @@ export const Reminder = () => {
     name,
     time
   } = useSelector(remindersSelector).find((reminder) => reminder.id === reminderId);
+  const weatherForecast = useSelector(weatherForecastSelector);
   const classes = useStyles();
   const handleGoBackClick = () => history.push('/');
   const handleRemoveReminderClick = () => {
@@ -37,6 +38,12 @@ export const Reminder = () => {
 
     history.push('/');
   };
+
+  console.log(weatherForecast, 'here');
+
+  useEffect(() => {
+    dispatch(actions.weatherForecastRequest({ reminderId }));
+  }, [dispatch, reminderId]);
 
   return (
     <Card className={classes.root}>
