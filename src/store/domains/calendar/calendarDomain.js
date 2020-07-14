@@ -8,15 +8,7 @@ const findAndReplaceReminder = (reminders, newReminder) => {
 } 
 
 export const initialState = {
-  reminders: [{
-    city: 'Cali',
-    day: '12',
-    id: '1234',
-    month: '07',
-    fullDate: new Date(),
-    name: 'Test Reminder',
-    time: '12:15'
-  }],
+  reminders: [],
   ui: {
     isLoading: false
   }

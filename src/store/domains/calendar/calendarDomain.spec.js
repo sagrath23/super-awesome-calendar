@@ -36,6 +36,7 @@ describe('Calendar Domain', () => {
       const action = actions.editReminder({
         city,
         day,
+        fullDate: 'a date',
         id,
         month,
         name,
@@ -45,6 +46,7 @@ describe('Calendar Domain', () => {
         payload: {
           city,
           day,
+          fullDate: 'a date',
           id,
           month,
           name,
@@ -76,6 +78,7 @@ describe('Calendar Domain', () => {
     const reminder = {
       city,
       day,
+      fullDate: 'a date',
       id: '123',
       month,
       name,
