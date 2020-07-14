@@ -23,9 +23,9 @@ import {
 } from '@material-ui/pickers';
 import { Form } from '../common/Form';
 import { actions } from '../../store/domains';
+import { validateMaxLength } from '../../utils/misc';
 
 const extractDateAndTimeData = ({ date, time }) => [getMonth(date), getDate(date), format(time, 'HH:mm')];
-const validateMaxLength = (name) => name.length > 30;
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',

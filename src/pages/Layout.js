@@ -10,7 +10,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
 import {
   Calendar,
-  ReminderDetail
+  ReminderDetail,
+  EditReminder
 } from '../pages';
 import { CalendarHeader } from '../components/CalendarHeader';
 import { CalendarSidebar } from '../components/CalendarSidebar';
@@ -70,6 +71,7 @@ export const Layout = () => {
           <Switch>
             <Route exact path="/" component={Calendar} />
             <Route exact path="/reminders/:reminderId" component={ReminderDetail} />
+            <Route exact path="/reminders/:reminderId/edit" component={EditReminder} />
           </Switch>
           <Snackbar
             anchorOrigin={{

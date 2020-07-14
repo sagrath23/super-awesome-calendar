@@ -44,6 +44,7 @@ export const Reminder = () => {
   const forecastDay = forecastDays.find((forecastDay) => isSameDay(parseISO(forecastDay.date), fullDate));
   const classes = useStyles();
   const handleGoBackClick = () => history.push('/');
+  const handleEditReminderClick = () => history.push(`/reminders/${reminderId}/edit`);
   const handleRemoveReminderClick = () => {
     dispatch(actions.deleteReminder(reminderId));
 
@@ -81,6 +82,9 @@ export const Reminder = () => {
         </CardContent>
       </CardActionArea>
       <CardActions>
+      <Button size="small" color="primary" onClick={handleEditReminderClick}>
+          Edit
+        </Button>
         <Button size="small" color="primary" onClick={handleRemoveReminderClick}>
           Remove
         </Button>

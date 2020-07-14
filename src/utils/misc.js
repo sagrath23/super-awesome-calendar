@@ -1,0 +1,1 @@
+export const validateMaxLength = (name) => name.length > 30;
