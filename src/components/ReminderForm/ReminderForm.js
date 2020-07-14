@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { getMonth, getDate, format } from 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -23,9 +22,9 @@ import {
 } from '@material-ui/pickers';
 import { Form } from '../common/Form';
 import { actions } from '../../store/domains';
-import { validateMaxLength } from '../../utils/misc';
+import { validateMaxLength, extractDateAndTimeData } from '../../utils/misc';
 
-const extractDateAndTimeData = ({ date, time }) => [getMonth(date), getDate(date), format(time, 'HH:mm')];
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',

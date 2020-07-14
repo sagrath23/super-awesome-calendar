@@ -46,6 +46,7 @@ const {
   EDIT_REMINDER: ({
     city,
     day,
+    fullDate,
     id,
     month,
     name,
@@ -53,6 +54,7 @@ const {
   }) => ({
     city,
     day,
+    fullDate,
     id,
     month,
     name,
@@ -88,6 +90,7 @@ export const reducer = handleActions({
     payload: {
       city,
       day,
+      fullDate,
       id,
       month,
       name,
@@ -98,6 +101,7 @@ export const reducer = handleActions({
     reminders: findAndReplaceReminder(state.reminders, {
       city,
       day,
+      fullDate,
       id,
       month,
       name,

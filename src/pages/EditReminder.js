@@ -16,7 +16,7 @@ import {
 } from '@material-ui/pickers';
 import { Form } from '../components/common/Form';
 import { remindersSelector } from '../selectors';
-import { validateMaxLength } from '../utils/misc';
+import { validateMaxLength, extractDateAndTimeData } from '../utils/misc';
 import { actions } from '../store/domains';
 
 export const EditReminder = () => {
@@ -39,7 +39,18 @@ export const EditReminder = () => {
   });
   const handleCancelClick = () => history.push('/');
   const handleSaveClick = () => {
-    dispatch(actions.editReminder(reminder));
+    const [month, day, time] = extractDateAndTimeData(reminder);
+
+    dispatch(actions.editReminder({
+      city: reminder.city,
+      day,
+      fullDate: reminder.date,
+      id: reminder.id,
+      month,
+      name: reminder.name,
+      time
+    }));
+
     history.push('/');
   };
   const setReminderAttribute = (attribute) => (event) => {
