@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
@@ -18,6 +17,7 @@ import { Form } from '../components/common/Form';
 import { remindersSelector } from '../selectors';
 import { validateMaxLength, extractDateAndTimeData } from '../utils/misc';
 import { actions } from '../store/domains';
+import { format, parseISO, setHours, setMinutes } from 'date-fns';
 
 export const EditReminder = () => {
   const dispatch = useDispatch();
@@ -30,12 +30,13 @@ export const EditReminder = () => {
     name,
     time
   } = useSelector(remindersSelector).find((reminder) => reminder.id === reminderId);
+  const [hours, minutes] = time.split(':');
   const [reminder, setReminder] = useState({
     city,
     date: fullDate,
     id,
     name,
-    time: new Date()
+    time: setHours(setMinutes(parseISO(format(fullDate, 'yyyy-MM-dd')), minutes), hours)
   });
   const handleCancelClick = () => history.push('/');
   const handleSaveClick = () => {
